@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Esta API REST foi desenvolvida como parte da Avaliação Semestral da disciplina de Desenvolvimento Backend. O projeto implementa um sistema completo de gerenciamento de usuários utilizando ASP.NET Core com Minimal APIs, seguindo os princípios de Clean Architecture e aplicando padrões de projeto consagrados pela indústria.
+O projeto implementa um sistema completo de gerenciamento de usuários utilizando ASP.NET Core com Minimal APIs, seguindo os princípios de Clean Architecture e aplicando padrões de projeto consagrados pela indústria.
 
 A API permite operações CRUD (Create, Read, Update, Delete) sobre usuários, com validação rigorosa de dados de entrada, persistência em banco de dados SQLite através do Entity Framework Core, e implementação de soft delete para remoção lógica de registros.
 
@@ -335,11 +335,7 @@ Para importar:
 
 ## Autor
 
-**[Seu Nome Completo]**  
-RA: [Seu RA]  
-Curso: [Nome do Curso]  
-Instituição: [Nome da Instituição]
-
----
-
-**Desenvolvido como parte da Avaliação Semestral de Desenvolvimento Backend**
+**Mateus Martins Porto**  
+RA: 2024003645 
+Curso: Desenvolvimento Back-End  
+Instituição: Universidade Luterana do Brasil (ULBRA)
