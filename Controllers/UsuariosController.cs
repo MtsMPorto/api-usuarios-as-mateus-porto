@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Application.DTOs;
-using Application.Interfaces;
+using APIUsuarios.Application.DTOs;
+using APIUsuarios.Application.Interfaces;
 using FluentValidation;
 
 namespace API.Controllers;
@@ -28,9 +28,9 @@ public class UsuariosController : ControllerBase
     /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<UsuarioReadDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<UsuarioReadDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<UsuarioReadDto>>> GetAll(CancellationToken ct)
     {
-        var usuarios = await _usuarioService.GetAllAsync();
+        var usuarios = await _usuarioService.ListarAsync(ct);
         return Ok(usuarios);
     }
 
@@ -40,10 +40,10 @@ public class UsuariosController : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(UsuarioReadDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<UsuarioReadDto>> GetById(int id)
+    public async Task<ActionResult<UsuarioReadDto>> GetById(int id, CancellationToken ct)
     {
-        var usuario = await _usuarioService.GetByIdAsync(id);
-        
+        var usuario = await _usuarioService.ObterAsync(id, ct);
+
         if (usuario == null)
             return NotFound(new { message = $"Usuário com ID {id} não encontrado." });
 
@@ -56,7 +56,7 @@ public class UsuariosController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(UsuarioReadDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<UsuarioReadDto>> Create([FromBody] UsuarioCreateDto dto)
+    public async Task<ActionResult<UsuarioReadDto>> Create([FromBody] UsuarioCreateDto dto, CancellationToken ct)
     {
         var validationResult = await _createValidator.ValidateAsync(dto);
         if (!validationResult.IsValid)
@@ -64,7 +64,7 @@ public class UsuariosController : ControllerBase
 
         try
         {
-            var usuario = await _usuarioService.CreateAsync(dto);
+            var usuario = await _usuarioService.CriarAsync(dto, ct);
             return CreatedAtAction(nameof(GetById), new { id = usuario.Id }, usuario);
         }
         catch (InvalidOperationException ex)
@@ -80,7 +80,7 @@ public class UsuariosController : ControllerBase
     [ProducesResponseType(typeof(UsuarioReadDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<UsuarioReadDto>> Update(int id, [FromBody] UsuarioUpdateDto dto)
+    public async Task<ActionResult<UsuarioReadDto>> Update(int id, [FromBody] UsuarioUpdateDto dto, CancellationToken ct)
     {
         var validationResult = await _updateValidator.ValidateAsync(dto);
         if (!validationResult.IsValid)
@@ -88,12 +88,13 @@ public class UsuariosController : ControllerBase
 
         try
         {
-            var usuario = await _usuarioService.UpdateAsync(id, dto);
-            
-            if (usuario == null)
-                return NotFound(new { message = $"Usuário com ID {id} não encontrado." });
+            var usuario = await _usuarioService.AtualizarAsync(id, dto, ct);
 
             return Ok(usuario);
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = $"Usuário com ID {id} não encontrado." });
         }
         catch (InvalidOperationException ex)
         {
@@ -107,11 +108,11 @@ public class UsuariosController : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(int id, CancellationToken ct)
     {
-        var success = await _usuarioService.DeleteAsync(id);
-        
-        if (!success)
+        var removed = await _usuarioService.RemoverAsync(id, ct);
+
+        if (!removed)
             return NotFound(new { message = $"Usuário com ID {id} não encontrado." });
 
         return NoContent();

@@ -36,7 +36,7 @@ public class UsuarioUpdateDtoValidator : AbstractValidator<UsuarioUpdateDto>
     private bool BeValidPhoneFormat(string? telefone)
     {
         if (string.IsNullOrEmpty(telefone)) return true;
-        var phoneRegex = new Regex(@"^$$\d{2}$$\s?\d{5}-\d{4}$");
+        var phoneRegex = new Regex(@"^\(\d{2}\)\s\d{5}-\d{4}$");
         return phoneRegex.IsMatch(telefone);
     }
 }
