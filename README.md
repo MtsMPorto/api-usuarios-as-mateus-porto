@@ -1,4 +1,5 @@
 # API de Gerenciamento de Usuários
+# Link do Vídeo: https://youtu.be/GhS5U_HQWqo
 
 ## Descrição
 
@@ -325,13 +326,8 @@ Para importar:
 
 - Implementar hash de senhas com BCrypt
 - Adicionar paginação na listagem de usuários
-- Implementar autenticação JWT
-- Adicionar logging estruturado (Serilog)
+- Adicionar logging estruturado
 - Implementar testes unitários e de integração
-- Adicionar cache com Redis
-- Implementar rate limiting
-- Adicionar health checks
-- Documentação com exemplos no Swagger
 
 ## Autor
 
