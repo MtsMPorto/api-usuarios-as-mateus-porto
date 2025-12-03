@@ -87,8 +87,8 @@ APIUsuarios/
 
 1. **Clone o repositório**
 \`\`\`bash
-git clone https://github.com/seu-usuario/api-usuarios-as-[seu-nome].git
-cd api-usuarios-as-[seu-nome]/APIUsuarios
+git clone https://github.com/seu-usuario/api-usuarios-as-mateus-porto.git
+cd api-usuarios-as-mateus-porto/APIUsuarios
 \`\`\`
 
 2. **Restaure as dependências**
@@ -109,7 +109,7 @@ dotnet run
 
 5. **Acesse a documentação Swagger**
 \`\`\`
-https://localhost:[porta]/swagger
+https://localhost:5000/swagger
 \`\`\`
 
 A aplicação estará rodando e pronta para receber requisições!
@@ -338,8 +338,4 @@ Para importar:
 **Mateus Martins Porto**  
 RA: 2024003645 
 Curso: Desenvolvimento Back-End  
-<<<<<<< HEAD
 Instituição: Universidade Luterana do Brasil (ULBRA)
-=======
-Instituição: Universidade Luterana do Brasil (ULBRA)
->>>>>>> ac3756acb030907d4061ca4beeb06f86a1dcee10
